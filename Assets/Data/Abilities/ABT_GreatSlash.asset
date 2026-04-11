@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cb25406ed8db3418cdecd7f7ba6eb2, type: 3}
+  m_Name: ABT_GreatSlash
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityData
+  <displayName>k__BackingField: ABT_GreatSlash
+  <castTime>k__BackingField: 0.6
+  <duration>k__BackingField: 0.4
+  <cooldown>k__BackingField: 0.5
+  vfx: {fileID: 8243129511073512695, guid: b79b3ba97d3007c40954940e0adb7815, type: 3}
+  <clip>k__BackingField: {fileID: -203655887218126122, guid: f89437e09d2293446ba64c30ccfb7a2a, type: 3}
+  <playbackSpeed>k__BackingField: 1.4
+  <effects>k__BackingField:
+  - name: Damage
+    value: 10
+    effect: {fileID: 11400000, guid: e957ae4720db4934687f1d782819abbd, type: 2}
+  <canMove>k__BackingField: 0
+  <canRotate>k__BackingField: 0
