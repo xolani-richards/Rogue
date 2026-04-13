@@ -1,11 +1,9 @@
+using System;
 using UnityEngine;
-using ROGUE.Characters;
 
 public class HeroController : CharacterController
 {
-    [SerializeField] Vector2 moveInput;
-    [SerializeField] bool attackInput;
-    [SerializeField] bool walkInput;
+    GameManager gameManager;
     PlayerInput inputs;
 
     void Awake()
@@ -15,39 +13,26 @@ public class HeroController : CharacterController
         inputs.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         
         inputs.Player.Attack.performed += ctx => attackInput = true;
-        inputs.Player.Attack.canceled += ctx => attackInput = false;
-        inputs.Player.Sprint.performed += ctx => OnWalk(true);
-        inputs.Player.Sprint.canceled += ctx => OnWalk(false);
+        inputs.Player.Attack.canceled += ctx => attackInput = false; 
+        inputs.Player.Sprint.performed += ctx => walkInput = true;
+        inputs.Player.Sprint.canceled += ctx => walkInput = false;
         inputs.Player.Enable();
     }
 
-    void Update()
+    void Start()
     {
-        OnMove();
-        OnAttack();
+        gameManager = ServiceLocator.Get<GameManager>();
+        gameManager.onStateUpdated += OnGameStateUpdated;
     }
 
-    void OnWalk(bool value)
+    void OnDestroy()
     {
-        walkInput = value;
-        Hero.instance.move.IsWalking(walkInput);
+        gameManager.onStateUpdated -= OnGameStateUpdated;
     }
 
-    void OnMove() => Hero.instance?.move.SetMoveInput(moveInput);
-
-
-    void OnAttack()
+    private void OnGameStateUpdated(GameState state)
     {
-        if(!attackInput) return;
-        // Hero.instance?.abilityController.OnExecute();
-        Hero.instance?.attack.OnAttack();
-        attackInput = false;
+        if(state != GameState.PLAYING) inputs.Player.Disable();
+        else inputs.Player.Enable();
     }
-
-    void OnBlock()
-    {}
-
-    void OnDodge()
-    {}
-
 }

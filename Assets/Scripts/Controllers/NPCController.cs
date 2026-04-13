@@ -70,10 +70,8 @@ public class NPCController : CharacterController
         if (highestScore != currentGoal) SwitchGoal(highestScore);
 
         Node.Status status = currentGoal.Process(deltaTime);
-        Debug.Log(status);
         if (status != Node.Status.RUNNING)
         {
-            Debug.Log($"BRAIN: {currentGoal.displayName} - {status}");
             currentGoal.OnExit();
             currentGoal = null;
         }

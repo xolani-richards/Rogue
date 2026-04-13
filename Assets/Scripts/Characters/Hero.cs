@@ -12,6 +12,7 @@ namespace ROGUE.Characters
         [HideInInspector] public AbilityController abilityController;
         [HideInInspector] public Attack attack;
         Rigidbody rb;
+        protected StateEngine stateEngine;
 
         protected override void Awake()
         {
@@ -19,6 +20,7 @@ namespace ROGUE.Characters
             else Destroy(gameObject);
 
             base.Awake();
+            stateEngine = GetComponent<StateEngine>();
             move = GetComponent<HeroMove>();
             abilityController = GetComponent<AbilityController>();
             attack = GetComponent<Attack>();

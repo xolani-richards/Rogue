@@ -5,7 +5,6 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 using MEC;
 using Random = UnityEngine.Random;
-// using System.Dynamic; // Uses More Effective Coroutines from the Unity Asset Store
 
 
 // USE THE PLAYABLES SYSTEM
@@ -21,7 +20,7 @@ public class AnimationSystem {
 
     public AnimationSystem(Animator animator, AnimationClip idleClip, AnimationClip walkClip, AnimationClip runClip, bool randomiseSpeed = false) {
         playableGraph = PlayableGraph.Create("AnimationSystem");
-        
+        playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
         AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", animator);
         
         topLevelMixer = AnimationMixerPlayable.Create(playableGraph, 2);

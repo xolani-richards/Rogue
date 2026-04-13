@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc602698984b1a0438b11b2c7aff65e4, type: 3}
   m_Name: BaseStats
   m_EditorClassIdentifier: Assembly-CSharp::BaseStats
-  attack: 10
-  defense: 20
+  <meleeAttack>k__BackingField: 10
+  <meleeDefense>k__BackingField: 20
+  <magicAttack>k__BackingField: 10
+  <magicDefense>k__BackingField: 20
+  <staminaRecovery>k__BackingField: 1
+  <maxHealth>k__BackingField: 20

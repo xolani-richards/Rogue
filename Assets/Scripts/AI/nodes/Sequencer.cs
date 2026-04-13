@@ -15,7 +15,6 @@ public class Sequencer : CompositeNode
 
     public override void OnExit()
     {
-        Debug.Log($"{displayName}: Exiting.");
         if(children.Count == 0) return;
         children[currentChild].OnExit();
         currentChild = 0;

@@ -5,7 +5,7 @@ namespace ROGUE.Characters
     public class HeroMove: CharacterMove
     {
         [SerializeField] Vector2 moveInput;
-        [SerializeField] bool isWalking;
+        [field: SerializeField] public bool isWalking;
     
         public void SetMoveInput(Vector2 moveInput) => this.moveInput = moveInput;
         public void IsWalking(bool flag) => this.isWalking = flag;
