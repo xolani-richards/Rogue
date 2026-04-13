@@ -1,4 +1,6 @@
-public abstract class TargetingStrategy
+using UnityEngine;
+
+public abstract class TargetingStrategy: ScriptableObject
 {
     protected Ability ability;
     protected TargetingManager targetingManager;
@@ -6,18 +8,7 @@ public abstract class TargetingStrategy
 
     public bool IsTargeting => isTargeting;
 
-    public abstract void Start(Ability ability, TargetingManager targetingManager);
+    public abstract void OnStart(Ability ability, TargetingManager targetingManager);
     public virtual void Update() { }
     public virtual void Cancel() { }
-}
-
-public class SelfTargeting : TargetingStrategy
-{
-    public override void Start(Ability ability, TargetingManager targetingManager)
-    {
-        if (targetingManager.transform.TryGetComponent<IDamageable>(out var target))
-        {
-            ability.Execute(target);
-        }
-    }
 }

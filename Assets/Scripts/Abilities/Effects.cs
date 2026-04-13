@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using ImprovedTimers;
 
 public interface IEffectFactory<TTarget> {
