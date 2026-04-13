@@ -12,18 +12,18 @@ public interface IEffect<TTarget> {
     event Action<IEffect<TTarget>> OnCompleted;
 }
 
-[Serializable]
-public class DamageEffectFactory : IEffectFactory<IDamageable> {
-    public int damageAmount = 10;
+// [Serializable]
+// public class DamageEffectFactory : IEffectFactory<IDamageable> {
+//     public int damageAmount = 10;
 
-    public IEffect<IDamageable> Create() {
-        return new DamageEffect { damageAmount = damageAmount };
-    }
-}
+//     public IEffect<IDamageable> Create() {
+//         return new DamageEffect { damageAmount = damageAmount };
+//     }
+// }
 
 [Serializable]
 public struct DamageEffect : IEffect<IDamageable> {
-    public int damageAmount;
+    public float damageAmount;
     
     public event Action<IEffect<IDamageable>> OnCompleted;
 
@@ -37,26 +37,26 @@ public struct DamageEffect : IEffect<IDamageable> {
     }
 }
 
-[Serializable]
-public class DamageOverTimeEffectFactory : IEffectFactory<IDamageable> {
-    public float duration = 3f;
-    public float tickInterval = 1f;
-    public int damagePerTick = 5;
+// [Serializable]
+// public class DamageOverTimeEffectFactory : IEffectFactory<IDamageable> {
+//     public float duration = 3f;
+//     public float tickInterval = 1f;
+//     public int damagePerTick = 5;
 
-    public IEffect<IDamageable> Create() {
-        return new DamageOverTimeEffect {
-            duration = duration, 
-            tickInterval = tickInterval, 
-            damagePerTick = damagePerTick
-        };
-    }
-}
+//     public IEffect<IDamageable> Create() {
+//         return new DamageOverTimeEffect {
+//             duration = duration, 
+//             tickInterval = tickInterval, 
+//             damagePerTick = damagePerTick
+//         };
+//     }
+// }
 
 [Serializable]
 public struct DamageOverTimeEffect : IEffect<IDamageable> {
     public float duration;
     public float tickInterval;
-    public int damagePerTick;
+    public float damagePerTick;
     
     public event Action<IEffect<IDamageable>> OnCompleted;
     
@@ -71,7 +71,10 @@ public struct DamageOverTimeEffect : IEffect<IDamageable> {
         timer.Start();
     }
     
-    void OnInterval() =>  currentTarget?.TakeDamage(damagePerTick);
+    void OnInterval() {
+        Debug.Log("Called on interval");
+        currentTarget?.TakeDamage(damagePerTick);
+    }
     void OnStop() => Cleanup();
 
     public void Cancel() {

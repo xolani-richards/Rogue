@@ -21,7 +21,6 @@ public class IdleState : State
 
     public override void OnEnter()
     {
-        Debug.Log("Hello from Idle");
     }
 
     public override void OnExit()

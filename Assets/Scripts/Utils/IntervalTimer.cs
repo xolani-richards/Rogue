@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using MEC;
 
 namespace ImprovedTimers
@@ -18,6 +19,7 @@ namespace ImprovedTimers
         {
             this.duration = duration;
             this.tickInterval = tickInterval;
+            this.isRunning = false;
         }
 
         public void Start()
@@ -29,17 +31,22 @@ namespace ImprovedTimers
         public void Stop ()
         {
             Timing.KillCoroutines(handle);
+            isRunning = false;
         }
 
         IEnumerator<float> Timer ()
         {
-            while(duration < 0f)
+            Debug.Log($"Timer starting: {duration}:{tickInterval}");
+            isRunning = true;
+
+            while(duration > 0f)
             {
                 yield return Timing.WaitForSeconds(tickInterval);
                 duration -= tickInterval;
                 OnInterval?.Invoke();
             }
             if(duration <= 0) OnTimerStop?.Invoke();
+            isRunning = false;
         }
         
     }

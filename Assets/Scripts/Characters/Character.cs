@@ -71,6 +71,7 @@ namespace ROGUE.Characters
 
         public void TakeDamage(float baseValue)
         {
+            Debug.Log($"Taking damage: {baseValue}");
             if(health.health <= 0) return;
             health.RemoveHealth(baseValue);
             context.SetData("TakingDamage", 1f);
@@ -78,8 +79,8 @@ namespace ROGUE.Characters
             return;
         }
 
-        public void ApplyEffect(IEffect<IDamageable> effect)
-        {}
+        public void ApplyEffect(IEffect<IDamageable> effect) => effect.Apply(this);
+        
 
         public virtual void OnDied ()
         {

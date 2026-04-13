@@ -10,8 +10,8 @@ public class Ability {
     public GameObject runningVfx;
     
     [Header("Effects")]
-    // [SerializeReference] public List<IEffectFactory<IDamageable>> effects = new();
-    [SerializeReference] public List<IEffect<IDamageable>> effects = new();
+    [SerializeReference] public List<DamageFactory> effects = new();
+    // [SerializeReference] public List<IEffect<IDamageable>> effects = new();
     
     [Header("Targeting")]
     [SerializeReference] TargetingStrategy targetingStrategy;
@@ -26,7 +26,7 @@ public class Ability {
         HandleVFX(target);
         
         foreach (var effect in effects) {
-            var runtimeEffect = effect;//.Create();
+            var runtimeEffect = effect.Create();
             target.ApplyEffect(runtimeEffect);
         }
     }
