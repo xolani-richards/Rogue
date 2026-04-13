@@ -16,7 +16,8 @@ namespace ROGUE.Characters
         public void OnTakeHit ()
         {
             if(character.health.health <= 0) return;
-            character.animationSystem.PlayOneShot(hitClip);
+            character.context.SetData("TakingDamage", 1f);
+            // character.animationSystem.PlayOneShot(hitClip);
         }
 
         public void OnDead ()

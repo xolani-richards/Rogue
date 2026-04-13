@@ -11,7 +11,8 @@ namespace ROGUE.Characters
         [SerializeField] AnimationClip walkAnim;
         [SerializeField] AnimationClip runAnim;
         [SerializeField] bool randomiseSpeed = true;
-        [SerializeField] protected AnimationClip deathAnim;
+        [SerializeField] public AnimationClip deathAnim;
+        [SerializeField] public AnimationClip damageAnim;
 
         [HideInInspector] public Health health;
         [HideInInspector] public Character character => this;
@@ -21,8 +22,6 @@ namespace ROGUE.Characters
         [HideInInspector] public AnimationSystem animationSystem;
 
         [Header("Context")]
-        [SerializeField] StateFactory factory;
-        public StateEngine stateEngine;
         public Context context;
 
         [Header("Stats")]
@@ -39,11 +38,11 @@ namespace ROGUE.Characters
         public UnityEvent onTakeHit;
         public UnityEvent onDied;
         protected CharacterController controller;
+        
 
         protected virtual void Awake()
         {
             context = new();
-            stateEngine = new StateEngine(context, factory);
             stats = new Stats(new StatsMediator(), baseStats);
 
             controller = GetComponent<CharacterController>();
@@ -62,11 +61,6 @@ namespace ROGUE.Characters
             stats.Mediator.Update(Time.deltaTime);
         }
 
-        void FixedUpdate()
-        {
-            Debug.Log(stats);
-        }
-
         protected virtual void OnDestroy()
         {
             animationSystem.Destroy();
@@ -79,11 +73,14 @@ namespace ROGUE.Characters
         {
             if(health.health <= 0) return false;
             health.RemoveHealth(baseValue);
+            context.SetData("TakingDamage", 1f);
             onTakeHit?.Invoke();
             return true;
         }
 
         public virtual void OnDied ()
-        {}
+        {
+            context.SetData("Dead", 1f);
+        }
     }
 }

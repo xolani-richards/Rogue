@@ -9,6 +9,7 @@ public class Context
     public Vector3 destination;
     [SerializeField] List<string> dataList = new ();
     Dictionary<string, float> data = new ();
+    public Action onUpdate;
 
     public float GetData(string key)
     {
@@ -18,9 +19,11 @@ public class Context
 
     public void SetData(string key, float value)
     {
+        Debug.Log("Setting value");
         if(!data.ContainsKey(key)) data.Add(key, 0f);
         data[key] = value;
         UpdateDataList();
+        onUpdate?.Invoke();
     }
 
     void UpdateDataList ()

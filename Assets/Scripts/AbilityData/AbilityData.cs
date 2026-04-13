@@ -8,10 +8,15 @@ using ROGUE.Characters;
 public class AbilityData : ScriptableObject
 {
     [field: SerializeField] public string displayName { get; protected set; }
+    [field: SerializeField] public AbilityHitTrigger vfx;
+    [field: SerializeField] public bool onlyTargetSelf { get; protected set; } = false; 
+    [field: SerializeField] public bool canHitSelf { get; protected set; } = false;
+
+
+    [field: Header("Timings")]
     [field: SerializeField, Range(0.1f, 4f)] public float castTime { get; protected set; } = 2f;
     [field: SerializeField, Range(0.1f, 4f)] public float duration { get; protected set; } = 1f;
     [field: SerializeField] public float cooldown { get; protected set; } = 0.1f;
-    [field: SerializeField] public HitBox vfx; 
     
 
     [field: Header("Animation")]
