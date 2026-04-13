@@ -69,14 +69,17 @@ namespace ROGUE.Characters
 
         public abstract void OnAccept(IVisitor visitor);
 
-        public bool DoDamage(GameObject caster, float baseValue)
+        public void TakeDamage(float baseValue)
         {
-            if(health.health <= 0) return false;
+            if(health.health <= 0) return;
             health.RemoveHealth(baseValue);
             context.SetData("TakingDamage", 1f);
             onTakeHit?.Invoke();
-            return true;
+            return;
         }
+
+        public void ApplyEffect(IEffect<IDamageable> effect)
+        {}
 
         public virtual void OnDied ()
         {

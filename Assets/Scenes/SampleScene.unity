@@ -857,8 +857,9 @@ GameObject:
   - component: {fileID: 576376030}
   - component: {fileID: 576376033}
   - component: {fileID: 576376035}
-  - component: {fileID: 576376037}
   - component: {fileID: 576376038}
+  - component: {fileID: 576376040}
+  - component: {fileID: 576376039}
   m_Layer: 6
   m_Name: Hero
   m_TagString: Player
@@ -1071,21 +1072,6 @@ MonoBehaviour:
     playbackSpeed: 1.8
     blendDelay: 0.2
   index: 0
---- !u!114 &576376037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576376024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69a655052a811a4987f041f1a6a2ce5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeroAbilityController
-  abilities: []
-  currentAbility: {fileID: 0}
-  isExecuting: 0
 --- !u!114 &576376038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,6 +1086,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StateEngine
   stateFactory: {fileID: 11400000, guid: a515452859284be499c4eaebca33365e, type: 2}
   statename: 0
+--- !u!114 &576376039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576376024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a402a8ca4e74835a25a5f22f015e82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityCaster
+  hotbar: []
+  targetingManager: {fileID: 576376040}
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &576376040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576376024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e886de7eb24734d72b8aeddf5d116a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TargetingManager
+  cam: {fileID: 330585545}
 --- !u!1 &685264346
 GameObject:
   m_ObjectHideFlags: 0
