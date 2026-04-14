@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7140a267dbcde254eb086eb1a04e0b8a, type: 3}
-  m_Name: DMG_Factory
-  m_EditorClassIdentifier: Assembly-CSharp::DamageEffectFactory
-  damageAmount: 10
+  m_Script: {fileID: 11500000, guid: 66d7e8e6686b7c945b749486a708397c, type: 3}
+  m_Name: Heal_Over_Time_Effect
+  m_EditorClassIdentifier: Assembly-CSharp::HealOverTimeEffect
+  effectStrategy: {fileID: 0}
+  duration: 3
+  tickInterval: 1
+  healPerTick: 5

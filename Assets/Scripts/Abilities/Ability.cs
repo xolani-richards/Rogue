@@ -6,27 +6,28 @@ using Object = UnityEngine.Object;
 [Serializable]
 public class Ability {
     public AudioClip castSfx;
+    public AnimationClip animation;
     public GameObject castVfx;
     public GameObject runningVfx;
     
+    TargetingManager currentUser;
+
     [Header("Effects")]
     [SerializeReference] public List<DamageFactory> effects = new();
-    // [SerializeReference] public List<IEffect<IDamageable>> effects = new();
     
     [Header("Targeting")]
     [SerializeReference] TargetingStrategy targetingStrategy;
 
     public void Target(TargetingManager targetingManager) {
-        if (targetingStrategy != null) {
-            targetingStrategy.OnStart(this, targetingManager);
-        }
+        if (targetingStrategy != null) targetingStrategy.OnStart(this, targetingManager);
+        currentUser = targetingManager;
     }
 
     public void Execute(IDamageable target) {
         HandleVFX(target);
         
         foreach (var effect in effects) {
-            var runtimeEffect = effect.Create();
+            var runtimeEffect = effect.Create(currentUser);
             target.ApplyEffect(runtimeEffect);
         }
     }
