@@ -76,7 +76,7 @@ public class AnimationSystem {
 
     public void PlayOneShotAndDestroy(AnimationClip oneShotClip, float speed = 1f)
     {
-        if (!oneShotPlayable.IsValid()) return;
+        if (!oneShotPlayable.IsValid()) {Debug.Log("NOT VALID!"); return; }
         InterruptOneShot();
         oneShotPlayable = AnimationClipPlayable.Create(playableGraph, oneShotClip);
         oneShotPlayable.SetSpeed(speed);

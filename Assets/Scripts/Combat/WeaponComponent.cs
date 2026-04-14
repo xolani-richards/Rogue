@@ -43,6 +43,6 @@ public class WeaponComponent: MonoBehaviour
         Debug.Log($"HIT: {damageable.gameObject.name}");
         GameObject caster = user == null ? null : user.gameObject;
         float damage = user == null ? baseDamage : user.stats.MeleeAttack;
-        damageable.DoDamage(caster, damage);
+        damageable.TakeDamage(damage);
     }
 }

@@ -5,7 +5,7 @@ namespace ROGUE.Characters
 {
     [RequireComponent(typeof(PointManager))]
     [RequireComponent(typeof(HeroMove))]
-    public class Hero : Character, IActor
+    public class Hero : Character, IActor, IHealable
     {
         public static Hero instance;
         [HideInInspector] public HeroMove move;
@@ -28,5 +28,11 @@ namespace ROGUE.Characters
         }
 
         public override void OnAccept(IVisitor visitor) => visitor.OnHeroVisit();
+
+        public void AddHealth(float amount)
+        {
+            if(amount <= 0) return;
+            health.AddHealth(amount);
+        }
     }
 }
