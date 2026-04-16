@@ -27,11 +27,9 @@ namespace ROGUE.Characters
 
         public override void OnDied()
         {
-            canMove = false;
-            canRotate = false;
             animationSystem.PlayOneShotAndDestroy(deathAnim);
             this.controller.enabled = false;
-            onDied?.Invoke();
+            base.OnDied();
         }
     }
 }
