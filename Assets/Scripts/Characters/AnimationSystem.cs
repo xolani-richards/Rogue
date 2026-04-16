@@ -10,6 +10,7 @@ using Random = UnityEngine.Random;
 // USE THE PLAYABLES SYSTEM
 public class AnimationSystem {
     PlayableGraph playableGraph;
+    Animator animator;
     readonly AnimationMixerPlayable topLevelMixer;
     readonly AnimationMixerPlayable locomotionMixer;
     
@@ -17,8 +18,32 @@ public class AnimationSystem {
     
     CoroutineHandle blendInHandle;
     CoroutineHandle blendOutHandle;
+    bool usingAnimator = false;
+
+    public AnimationSystem(Animator animator)
+    {
+        usingAnimator = true;
+        this.animator = animator;
+        playableGraph = PlayableGraph.Create("AnimationSystem");
+        playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+        AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", animator);
+        
+        topLevelMixer = AnimationMixerPlayable.Create(playableGraph, 2);
+        playableOutput.SetSourcePlayable(topLevelMixer);
+        
+        // locomotionMixer = AnimationMixerPlayable.Create(playableGraph, 3);
+        AnimatorControllerPlayable controllerPlayable = AnimatorControllerPlayable.Create(playableGraph, animator.runtimeAnimatorController);
+        // locomotionMixer = AnimatorControllerPlayable.Create(playableGraph, runtimeController);
+        topLevelMixer.ConnectInput(0, controllerPlayable, 0);
+        playableGraph.GetRootPlayable(0).SetInputWeight(0, 1f);
+        
+        playableGraph.Play();
+    }
 
     public AnimationSystem(Animator animator, AnimationClip idleClip, AnimationClip walkClip, AnimationClip runClip, bool randomiseSpeed = false) {
+        usingAnimator = false;
+        this.animator = animator;
+        
         playableGraph = PlayableGraph.Create("AnimationSystem");
         playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
         AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", animator);
@@ -57,7 +82,12 @@ public class AnimationSystem {
     public void UpdateLocomotion(float speed)
     {
         // 0 = stop | 0.5f = walk | 1f = run
+        // if(locomotionMixer == null) return;
         speed = Mathf.Clamp01(speed);
+        if(usingAnimator) {
+            animator.SetFloat("Speed", speed);
+            return;
+        }
         if(speed < 0.5f)
         {
             float weight = Mathf.InverseLerp(0f, 0.5f, speed);

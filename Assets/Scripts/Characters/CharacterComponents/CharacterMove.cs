@@ -13,7 +13,8 @@ namespace ROGUE.Characters
         [SerializeField] protected float targetSpeed;
         [SerializeField] protected float currentSpeed;
 
-
+        [SerializeField] protected Vector2 moveInput;
+        [field: SerializeField] public bool isWalking;
         protected Character character;
         protected float currentVelocity;
 
@@ -27,6 +28,9 @@ namespace ROGUE.Characters
             Rotate();
         }
         protected virtual float CalculateSpeed() => Mathf.SmoothDamp(currentSpeed, targetSpeed, ref currentVelocity, dampSpeed);
+
+        public void SetMoveInput(Vector2 moveInput) => this.moveInput = moveInput;
+        public void IsWalking(bool flag) => this.isWalking = flag;
 
         protected virtual void OnMove()
         {

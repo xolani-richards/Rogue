@@ -4,7 +4,6 @@ using ROGUE.Characters;
 
 public class AnimationController: MonoBehaviour
 {
-    public AnimationSystem animationSystem;
     public Animator animator;
     Character character;
     public Action<string> onAnimEvent;
