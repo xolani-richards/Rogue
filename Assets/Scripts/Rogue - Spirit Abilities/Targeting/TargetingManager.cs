@@ -1,0 +1,18 @@
+using UnityEngine;
+namespace ROGUE.Abilities
+{
+public class TargetingManager : MonoBehaviour {
+    public Camera cam;
+    
+    TargetingStrategy currentStrategy;
+
+    void Update() {
+        if (currentStrategy != null && currentStrategy.IsTargeting) {
+            currentStrategy.Update();
+        }
+    }
+    
+    public void SetCurrentStrategy(TargetingStrategy strategy) => currentStrategy = strategy;
+    public void ClearCurrentStrategy() => currentStrategy = null;
+}
+}

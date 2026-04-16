@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad626764b2d38e49baaaecef38c09c7, type: 3}
+  m_Name: InstantHit
+  m_EditorClassIdentifier: Assembly-CSharp::ROGUE.Abilities.Ability
+  <displayName>k__BackingField: Instant Hit
+  <icon>k__BackingField: {fileID: 0}
+  <description>k__BackingField: test damage
+  <preCastFX>k__BackingField: {fileID: 0}
+  <castSfx>k__BackingField: {fileID: 0}
+  <castVfxOffset>k__BackingField: {x: 0, y: 1, z: 0}
+  <castVfx>k__BackingField: {fileID: 6627349641513791883, guid: b87dbff2cffb87d4a81ab51af9c25527, type: 3}
+  <runningVfx>k__BackingField: {fileID: 0}
+  <animation>k__BackingField: {fileID: -203655887218126122, guid: 8834c773ec393ab4195d67336379d474, type: 3}
+  <animationSpeed>k__BackingField: 1.4
+  <castDelay>k__BackingField: 0.1
+  targetingStrategy: {fileID: 11400000, guid: d9968dc6d33be3b47826a91fcfa133d6, type: 2}
+  effects:
+  - effect: {fileID: 11400000, guid: f2d537d179e43fa49853420f08ffc1dc, type: 2}
+    baseValue: 5
+    calculationStrategy: {fileID: 0}
