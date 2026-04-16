@@ -9,7 +9,6 @@ namespace ROGUE.Characters
     {
         public static Hero instance;
         [HideInInspector] public HeroMove move;
-        [HideInInspector] public AbilityController abilityController;
         [HideInInspector] public Attack attack;
         Rigidbody rb;
         protected StateEngine stateEngine;
@@ -22,7 +21,6 @@ namespace ROGUE.Characters
             base.Awake();
             stateEngine = GetComponent<StateEngine>();
             move = GetComponent<HeroMove>();
-            abilityController = GetComponent<AbilityController>();
             attack = GetComponent<Attack>();
             rb = GetComponent<Rigidbody>();
         }

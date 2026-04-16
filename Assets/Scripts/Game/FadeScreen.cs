@@ -15,7 +15,7 @@ public class FadeScreen : MonoBehaviour
         if(!ServiceLocator.Register<FadeScreen>(this)) Destroy(gameObject);
         if(canvasGroup == null) canvasGroup = GetComponentInChildren<CanvasGroup>();
 
-        // canvasGroup.alpha = 0f;
+        canvasGroup.alpha = 0f;
         // FadeIn(2f);
     }
 

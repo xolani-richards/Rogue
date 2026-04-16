@@ -1,10 +1,12 @@
+using System.Collections.Generic;
+using ROGUE.Abilities;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace ROGUE.Characters
 {
 [RequireComponent(typeof(Health))]
-    public abstract class Character : MonoBehaviour, IActor, IDamageable, ITargetable
+    public abstract class Character : MonoBehaviour, IActor, IDamageable, ITargetable, IEffectTarget
     {
         [Header("Animation")]
         [SerializeField] AnimationClip idleAnim;
@@ -33,6 +35,9 @@ namespace ROGUE.Characters
         public bool canMove;
         public bool canRotate;
         public bool useRootMotion = false;
+
+        [Header("Effects")]
+        [SerializeField] List<EffectData> effects = new ();
 
         [Header("Events")]
         public UnityEvent onTakeHit;
@@ -79,12 +84,23 @@ namespace ROGUE.Characters
             return;
         }
 
-        public void ApplyEffect(IEffect<IDamageable> effect) => effect.Apply(this);
-        
-
         public virtual void OnDied ()
         {
             context.SetData("Dead", 1f);
+            effects.ForEach(effect => effect.Cancel());
+        }
+
+        public void ApplyEffect(EffectData effect, float value)
+        {
+            effects.Add(effect);
+            effect.OnCompleted += RemoveEffect;
+            effect.Apply(this, value);
+        }
+
+        void RemoveEffect(EffectData effect)
+        {
+            effect.OnCompleted -= RemoveEffect;
+            effects.Remove(effect);
         }
     }
 }

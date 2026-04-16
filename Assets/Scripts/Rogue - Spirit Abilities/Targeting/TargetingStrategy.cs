@@ -1,0 +1,17 @@
+using UnityEngine;
+
+namespace ROGUE.Abilities
+{
+    public abstract class TargetingStrategy: ScriptableObject
+    {
+        protected Ability ability;
+        protected TargetingManager targetingManager;
+        protected bool isTargeting = false;
+
+        public bool IsTargeting => isTargeting;
+
+        public abstract void OnStart(Ability ability, TargetingManager targetingManager);
+        public virtual void Update() { }
+        public virtual void Cancel() { }
+    }
+}
