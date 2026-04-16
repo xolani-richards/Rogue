@@ -84,6 +84,7 @@ namespace ROGUE.Characters
         {
             context.SetData("Dead", 1f);
             effects.ForEach(effect => effect.Cancel());
+            onDied?.Invoke();
         }
 
         public void ApplyEffect(EffectData effect, float value)
