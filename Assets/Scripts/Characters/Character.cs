@@ -9,10 +9,7 @@ namespace ROGUE.Characters
     public abstract class Character : MonoBehaviour, IActor, IDamageable, ITargetable, IEffectTarget
     {
         [Header("Animation")]
-        [SerializeField] AnimationClip idleAnim;
-        [SerializeField] AnimationClip walkAnim;
-        [SerializeField] AnimationClip runAnim;
-        [SerializeField] bool randomiseSpeed = true;
+
         [SerializeField] public AnimationClip deathAnim;
         [SerializeField] public AnimationClip damageAnim;
 
@@ -55,8 +52,7 @@ namespace ROGUE.Characters
             animator = GetComponentInChildren<Animator>();
             sensor = GetComponentInChildren<Sensor>();
             animationController = GetComponentInChildren<AnimationController>();
-            animationSystem = new (animator, idleAnim, walkAnim, runAnim, randomiseSpeed);
-            animationSystem.UpdateLocomotion(0f);
+
             // animationSystem.PlayOneShot(idleAnim);
             health.died += OnDied;
         }

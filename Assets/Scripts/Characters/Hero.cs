@@ -4,11 +4,11 @@ using UnityEngine;
 namespace ROGUE.Characters
 {
     [RequireComponent(typeof(PointManager))]
-    [RequireComponent(typeof(HeroMove))]
+    // [RequireComponent(typeof(HeroMove))]
     public class Hero : Character, IActor, IHealable
     {
         public static Hero instance;
-        [HideInInspector] public HeroMove move;
+        [HideInInspector] public CharacterMove move;
         [HideInInspector] public Attack attack;
         Rigidbody rb;
         protected StateEngine stateEngine;
@@ -19,8 +19,10 @@ namespace ROGUE.Characters
             else Destroy(gameObject);
 
             base.Awake();
+            animationSystem = new (animator);
+            animationSystem.UpdateLocomotion(0f);
             stateEngine = GetComponent<StateEngine>();
-            move = GetComponent<HeroMove>();
+            move = GetComponent<CharacterMove>();
             attack = GetComponent<Attack>();
             rb = GetComponent<Rigidbody>();
         }
