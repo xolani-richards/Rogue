@@ -1,17 +1,25 @@
 using System;
 using UnityEngine;
+using Matso.Events;
 
-public class UIManager: MonoBehaviour
+public class UIManager: MonoBehaviour, IObserver
 {
     [SerializeField] SelectionPopup selectionPopUpPrefab;
+    [SerializeField] GameOverUI gameOverPrefab;
     SelectionPopup popup;
     GameManager gameManager;
+    GameObject gameOverMenu;
 
     void Awake()
     {
         bool result = ServiceLocator.Register<UIManager>(this);
-        Debug.Log($"UIMANAGER: {result}");
         if (!result) Destroy(gameObject);
+
+        EventBus.Register(EventKey.HERO_DIED, this);
+    }
+
+    void OnDestroy() {
+        EventBus.Unregister(EventKey.HERO_DIED, this);    
     }
 
     void Init()
@@ -28,9 +36,19 @@ public class UIManager: MonoBehaviour
         gameManager.SwitchState(GameState.MENU);
     }
 
+    public void OnHeroDied ()
+    {
+        gameOverMenu = Instantiate(gameOverPrefab, transform).gameObject;
+    }
+
     void OnClose()
     {
         Debug.Log("Close called");
         gameManager.SwitchState(GameState.PLAYING);
+    }
+
+    public void OnNotify(Component sender, EventKey type, object data)
+    {
+        if(type == EventKey.HERO_DIED) OnHeroDied ();
     }
 }

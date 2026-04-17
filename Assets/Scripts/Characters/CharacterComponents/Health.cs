@@ -9,6 +9,7 @@ namespace ROGUE.Characters
         [field: SerializeField] public float maxHealth { get; protected set; }
         public Action healthUpdated;
         public Action died;
+        public float normalized () => health / maxHealth;
         Character character;
 
         void Start()

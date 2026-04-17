@@ -80,7 +80,7 @@ namespace ROGUE.Characters
             return;
         }
 
-        public virtual void OnDied ()
+        protected virtual void OnDied ()
         {
             context.SetData("Dead", 1f);
             effects.ForEach(effect => effect.Cancel());
