@@ -21,7 +21,7 @@ public class CameraRig : MonoBehaviour
 
     void Start()
     {
-        // target = Hero.instance?.transform;
+        target = Hero.instance?.transform;
         if(target == null) enabled = false;
     }
 

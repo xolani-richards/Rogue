@@ -12,8 +12,10 @@ namespace ROGUE.Abilities
         public override void OnStart(Ability ability, TargetingManager targetingManager)
         {
             IEffectTarget target = GetTarget();
-            Debug.Log($"Target: {target?.gameObject.name}");
-            if (target != null) ability.Execute(targetingManager.gameObject, target);
+            // Debug.Log($"Target: {target?.gameObject.name}");
+            // if (target != null) 
+            ability.Execute(targetingManager.gameObject, target);
+
         }
 
         IEffectTarget GetTarget ()

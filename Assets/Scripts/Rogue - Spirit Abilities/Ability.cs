@@ -26,6 +26,7 @@ namespace ROGUE.Abilities
         [field: SerializeField] public AnimationClip animation { get; protected set; }
         [field: SerializeField] public float animationSpeed { get; protected set; } = 1f;
         [field: SerializeField] public float castDelay { get; protected set; }
+        public Action<GameObject> OnCompleted;
 
         [Header("Targeting")]
         public TargetingStrategy targetingStrategy;
@@ -81,6 +82,8 @@ namespace ROGUE.Abilities
             yield return Timing.WaitForSeconds(castDelay / animationSpeed);
             HandleVFX(target);
             ApplyEffects(caster, target);
+            if(animation != null) yield return Timing.WaitForSeconds((animation.length - castDelay) / animationSpeed);
+            OnCompleted?.Invoke(caster);
         }
     }
 }

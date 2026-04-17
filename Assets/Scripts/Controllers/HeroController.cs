@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class HeroController : CharacterController
 {
+    public bool cast;
+    public Action onNext;
+    public Action onPrevious;
     GameManager gameManager;
     PlayerInput inputs;
 
@@ -16,6 +19,12 @@ public class HeroController : CharacterController
         inputs.Player.Attack.canceled += ctx => attackInput = false; 
         inputs.Player.Sprint.performed += ctx => walkInput = true;
         inputs.Player.Sprint.canceled += ctx => walkInput = false;
+        inputs.Player.Cast.performed += ctx => cast = true;
+        inputs.Player.Cast.canceled += ctx => cast = false;
+
+        inputs.Player.Next.performed += ctx => onNext?.Invoke();
+        inputs.Player.Previous.performed += ctx => onPrevious?.Invoke();
+        
         inputs.Player.Enable();
     }
 

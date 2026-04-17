@@ -18,6 +18,7 @@ namespace  ROGUE.Abilities
         public float baseValue;
         public IEffectCalculationStrategy calculationStrategy;
         public void Apply (GameObject caster, IEffectTarget target) {
+            if(target == null) return;
             float str = calculationStrategy != null ? calculationStrategy.Calculate(caster, baseValue) : baseValue;
             EffectData instance = GameObject.Instantiate(effect);
             target.ApplyEffect(instance, str);
