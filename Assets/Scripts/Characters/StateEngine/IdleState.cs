@@ -27,7 +27,6 @@ public class IdleState : State
 
     public override void OnExit()
     {
-        // Hero.instance
         move.SetMoveInput(Vector2.zero);
     }
 
