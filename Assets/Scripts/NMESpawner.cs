@@ -14,7 +14,6 @@ public class NMESpawner: MonoBehaviour
         Timing.RunCoroutine(Process());
     }
 
-
     public void Spawn ()
     {
         for (int i = 0; i < 10; i++)
