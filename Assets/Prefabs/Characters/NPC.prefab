@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 7549095428004238044}
   - component: {fileID: 3244792994624931527}
   - component: {fileID: 21647029223744572}
+  - component: {fileID: -488804937973417706}
   m_Layer: 6
   m_Name: NPC
   m_TagString: Untagged
@@ -523,6 +524,20 @@ MonoBehaviour:
     item: {fileID: 9181465000436613714, guid: f5518bda7ef6c15428dccacd51922472, type: 3}
   delay: 3
   dropRadius: 1
+--- !u!114 &-488804937973417706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7551625069503472383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f554fc401cf54fe48b9775e29d233a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StateEngine
+  stateFactory: {fileID: 11400000, guid: 3574e1b5daf34b645b4e41435f018e86, type: 2}
+  statename: 0
 --- !u!1 &8968236144187949675
 GameObject:
   m_ObjectHideFlags: 0
