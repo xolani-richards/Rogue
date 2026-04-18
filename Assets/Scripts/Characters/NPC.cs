@@ -25,7 +25,7 @@ namespace ROGUE.Characters
             move = GetComponent<NPCMove>();
         }
 
-        public override void OnDied()
+        protected override void OnDied()
         {
             animationSystem.PlayOneShotAndDestroy(deathAnim);
             this.controller.enabled = false;

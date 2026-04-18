@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Matso.Events;
 
 namespace ROGUE.Characters
 {
@@ -34,5 +35,11 @@ namespace ROGUE.Characters
             if(amount <= 0) return;
             health.AddHealth(amount);
         }
+
+        protected override void OnDied()
+        {
+            base.OnDied();
+            EventBus.Publish(this, EventKey.HERO_DIED, null);
+        }    
     }
 }

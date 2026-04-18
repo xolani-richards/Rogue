@@ -5,11 +5,13 @@ public class IdleState : State
 {
     CharacterController controller;
     Character character;
+    CharacterMove move;
     public IdleState(StateEngine engine) : base(engine)
     {
         statename = Statename.Idle;
         Character character = engine.GetComponent<Character> ();
         controller = engine.GetComponent<CharacterController>();
+        move = engine.GetComponent<CharacterMove>();
     }
 
     public override void OnCheckState()
@@ -25,15 +27,14 @@ public class IdleState : State
 
     public override void OnExit()
     {
-        Hero.instance.move.SetMoveInput(Vector2.zero);
+        move.SetMoveInput(Vector2.zero);
     }
 
     public override void OnUpdate(float deltaTime)
     {
         OnCheckState();
 
-        if(controller.walkInput != Hero.instance.move.isWalking) Hero.instance.move.IsWalking(controller.walkInput);
-        Hero.instance.move.SetMoveInput(controller.moveInput);
-        
+        if(controller.walkInput != move.isWalking) move.IsWalking(controller.walkInput);
+        move.SetMoveInput(controller.moveInput);
     }
 }

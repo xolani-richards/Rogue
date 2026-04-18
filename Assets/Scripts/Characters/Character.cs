@@ -36,11 +36,7 @@ namespace ROGUE.Characters
         [Header("Effects")]
         [SerializeField] List<EffectData> effects = new ();
 
-        [Header("Events")]
-        public UnityEvent onTakeHit;
-        public UnityEvent onDied;
         protected CharacterController controller;
-        
 
         protected virtual void Awake()
         {
@@ -52,8 +48,6 @@ namespace ROGUE.Characters
             animator = GetComponentInChildren<Animator>();
             sensor = GetComponentInChildren<Sensor>();
             animationController = GetComponentInChildren<AnimationController>();
-
-            // animationSystem.PlayOneShot(idleAnim);
             health.died += OnDied;
         }
 
@@ -76,15 +70,13 @@ namespace ROGUE.Characters
             if(health.health <= 0) return;
             health.RemoveHealth(baseValue);
             context.SetData("TakingDamage", 1f);
-            onTakeHit?.Invoke();
             return;
         }
 
-        public virtual void OnDied ()
+        protected virtual void OnDied ()
         {
             context.SetData("Dead", 1f);
             effects.ForEach(effect => effect.Cancel());
-            onDied?.Invoke();
         }
 
         public void ApplyEffect(EffectData effect, float value)
