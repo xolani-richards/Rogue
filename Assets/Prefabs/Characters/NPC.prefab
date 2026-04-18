@@ -94,7 +94,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4046318236105944346
 RectTransform:
   m_ObjectHideFlags: 0
@@ -374,36 +374,6 @@ MonoBehaviour:
   canRotate: 1
   useRootMotion: 1
   effects: []
-  onTakeHit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CharacterEvents, Assembly-CSharp
-        m_MethodName: OnTakeHit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onDied:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 21647029223744572}
-        m_TargetAssemblyTypeName: DropItems, Assembly-CSharp
-        m_MethodName: CreateDropItems
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   idleAnim: {fileID: 9013002834770967642, guid: 086ce7bdd0f25ac4d9769729f001d5d2, type: 3}
   walkAnim: {fileID: 5065078985690110279, guid: 2ed5655e1eff271478aa07d7baca63cb, type: 3}
   runAnim: {fileID: 5773200771269682347, guid: f958c2c8dfafa254c89ad8d824191db1, type: 3}

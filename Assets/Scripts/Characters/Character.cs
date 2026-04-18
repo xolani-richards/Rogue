@@ -25,7 +25,7 @@ namespace ROGUE.Characters
 
         [Header("Stats")]
         [SerializeField] BaseStats baseStats;
-        [field: SerializeField] public Stats stats { get; private set; }
+        [field: SerializeField] public Stats stats { get; private set; } = null;
 
         [Header("Flags")]
         public bool isExecuting;
@@ -67,10 +67,11 @@ namespace ROGUE.Characters
         public void TakeDamage(float baseValue)
         {
             Debug.Log($"Taking damage: {baseValue}");
-            if(health.health <= 0) return;
+            if(health.hitpoints <= 0) return;
+
             health.RemoveHealth(baseValue);
-            context.SetData("TakingDamage", 1f);
-            return;
+            context.isTakingDamage = true;
+            // context.SetData("TakingDamage", 1f);
         }
 
         protected virtual void OnDied ()

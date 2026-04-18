@@ -86,4 +86,34 @@ namespace ROGUE.Abilities
             OnCompleted?.Invoke(caster);
         }
     }
+
+    [Serializable]
+    public class AbilityItem
+    {
+        public Ability ability;
+        public float cooldown;
+        public float timer;
+        public bool isExecuting = false;
+        public Action onUpdate;
+        public Action onReady;
+        
+        public void OnStartTargeting(TargetingManager targetingManager) {
+            ability.Target(targetingManager);
+            isExecuting = true;
+            onUpdate?.Invoke();
+        }
+        public void SetTimer ()
+        {
+            timer = cooldown;
+            onUpdate?.Invoke();
+        }
+
+        public void onTick(float deltaTime)
+        {
+            if(timer == 0) return;
+            timer = Mathf.Clamp(timer - deltaTime, 0, cooldown);
+            onUpdate?.Invoke();
+            if(timer == 0f) onReady?.Invoke();
+        }
+    }
 }

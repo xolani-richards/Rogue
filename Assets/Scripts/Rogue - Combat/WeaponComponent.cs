@@ -41,8 +41,9 @@ public class WeaponComponent: MonoBehaviour
     private void OnHit(IDamageable damageable)
     {
         Debug.Log($"HIT: {damageable.gameObject.name}");
-        GameObject caster = user == null ? null : user.gameObject;
+        GameObject caster = user?.gameObject;
         float damage = user == null ? baseDamage : user.stats.MeleeAttack;
+        Debug.Log($"DMG: {damage}");
         damageable.TakeDamage(damage);
     }
 }

@@ -7,6 +7,7 @@ public class Context
 {
     public Transform target;
     public Vector3 destination;
+    public bool isTakingDamage;
     [SerializeField] List<string> dataList = new ();
     Dictionary<string, float> data = new ();
     public Action onUpdate;

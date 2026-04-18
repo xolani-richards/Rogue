@@ -5,37 +5,6 @@ using UnityEngine.InputSystem;
 
 namespace ROGUE.Abilities
 {
-    [Serializable]
-    public class AbilityItem
-    {
-        public Ability ability;
-        public float cooldown;
-        public float timer;
-        public bool isExecuting = false;
-        public Action onUpdate;
-        public Action onReady;
-        
-        public void OnStartTargeting(TargetingManager targetingManager) {
-            ability.Target(targetingManager);
-            isExecuting = true;
-            onUpdate?.Invoke();
-        }
-        public void SetTimer ()
-        {
-            timer = cooldown;
-            onUpdate?.Invoke();
-        }
-
-        public void onTick(float deltaTime)
-        {
-            if(timer == 0) return;
-            timer = Mathf.Clamp(timer - deltaTime, 0, cooldown);
-            onUpdate?.Invoke();
-            if(timer == 0f) onReady?.Invoke();
-        }
-    }
-
-
     public class AbilityCaster : MonoBehaviour
     {
         [field: SerializeField] public int abilitySlotLimit { get; private set; }= 3;
@@ -61,6 +30,31 @@ namespace ROGUE.Abilities
 
         public AbilityItem[] GetAbilityItems() => abilities.ToArray();
         public AbilityItem GetCurrentAbility() => currentAbility;
+
+        public bool AddAbilityItem(AbilityItem item)
+        {
+            if(isExecuting || abilities.Count >= abilitySlotLimit) return false;
+            abilities.Add(item);
+            onAbilitiesUpdated?.Invoke();
+            if(abilities.Count == 1) SetSelectedAbility(selectedIndex);
+            return true;
+        }
+
+        public bool AddAbilityItemToSlot(AbilityItem item, int slot)
+        {
+            if(isExecuting || slot >= abilitySlotLimit) return false;
+            if(slot > abilities.Count) abilities.Add(item);
+            else abilities[slot] = item;
+            onAbilitiesUpdated?.Invoke();
+            return true;
+        }
+
+        public void RemoveAbiltiyFromSlot(int slot)
+        {
+            if(isExecuting || slot >= abilities.Count) return;
+            abilities.RemoveAt(slot);
+            onAbilitiesUpdated?.Invoke();
+        }
 
         void SelectNext () => Select(1);
         void SelectPrevious () => Select(-1);
