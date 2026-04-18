@@ -12,8 +12,6 @@ public class InRangeConsideration : Consideration
     {
         float maxRange = key == string.Empty ? maxDistance: entity.context.GetData(key);
         GameObject target = entity.sensor.GetClosestByTag(targetTag, maxDistance);
-
-        Debug.Log(target);
         if (target == null) return 0f;
     
         float distance = Vector3.Distance(target.transform.position, entity.transform.position);

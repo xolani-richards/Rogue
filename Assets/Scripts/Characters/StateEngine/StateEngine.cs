@@ -45,14 +45,14 @@ public class StateEngine: MonoBehaviour
     public void Awake()
     {
         character = GetComponent<Character>();
-        character.context.onUpdate += CheckState;
+        // character.context.onUpdate += CheckState;
         factory = stateFactory.Init(this);
         ChangeState(Statename.Idle);
     }
 
     void OnDestroy()
     {
-        character.context.onUpdate -= CheckState;
+        // character.context.onUpdate -= CheckState;
     }
 
     void Update()
@@ -64,15 +64,13 @@ public class StateEngine: MonoBehaviour
     public void ChangeState (Statename newState)
     {
         State nextState = factory.GetState (newState);
-        if(nextState == null) return;
+        if(nextState == null || nextState == currentState) return;
         if(currentState != null) currentState.OnExit ();
         currentState = nextState;
         currentState.OnEnter ();
         statename = currentState.statename;
     }
 
-    public void CheckState ()  {
-        Debug.Log("Checking State");
-        currentState?.OnCheckState();
-    }
+    public void CheckState ()  => currentState?.OnCheckState();
+    
 }

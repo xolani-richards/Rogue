@@ -18,10 +18,6 @@ public class TakingDamageState : State
 
     public override void OnEnter()
     {
-        // if(engine.context.GetData("Dead") == 1f) {
-        //     engine.ChangeState(Statename.Dead);
-        //     return;
-        // }
         countDown = character.damageAnim.length;
         character.canMove = false;
         character.canRotate = false;
@@ -32,7 +28,7 @@ public class TakingDamageState : State
     {
         character.canMove = true;
         character.canRotate = true;
-        engine.context.SetData("TakingDamage", 0f);
+        engine.context.isTakingDamage = false;
     }
 
     public override void OnUpdate(float deltaTime)

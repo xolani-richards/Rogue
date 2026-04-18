@@ -1,12 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class LevelLoader :MonoBehaviour
 {
+    static List<string> menuScenes = new (){"MainMenu","Splash","Boot","GameplayCore"};
+    static string gameplayScene = "GameplayCore";
+    static string sceneToLoad;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void LoadScene () {
+        Debug.Log("RUNNING LOAD");
         Scene active = SceneManager.GetActiveScene();
-        // LoadScene(active.name);
+        if(menuScenes.Contains(active.name)) return; 
+        SceneManager.LoadScene(gameplayScene, LoadSceneMode.Additive);
     }
 
     public static void LoadScene(string sceneName)
@@ -14,6 +21,10 @@ public class LevelLoader :MonoBehaviour
         FadeScreen.instance.FadeOut(0);
         SceneManager.LoadScene(sceneName);
         FadeScreen.instance.FadeIn(2f);
+    }
 
+    static IEnumerator<float> LoadLevel (string sceneName)
+    {
+        yield return 0f;
     }
 }

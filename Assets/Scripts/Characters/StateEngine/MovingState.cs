@@ -15,7 +15,7 @@ public class MovingState : State
     public override void OnCheckState()
     {
         if(engine.context.GetData("Dead") == 1f) engine.ChangeState(Statename.Dead);
-        else if(engine.context.GetData("TakingDamage") == 1f) engine.ChangeState(Statename.TakingDamage);
+        else if(engine.context.isTakingDamage) engine.ChangeState(Statename.TakingDamage);
         else if(controller.attackInput) engine.ChangeState(Statename.Attacking);
     }
 
