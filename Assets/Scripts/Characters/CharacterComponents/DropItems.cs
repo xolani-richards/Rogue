@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using MEC;
+using ROGUE.Characters;
 
 [Serializable]
 public struct DropItem
@@ -11,11 +12,26 @@ public struct DropItem
     [field: SerializeField] public GameObject item;
 }
 
+[RequireComponent(typeof(Character))]
 public class DropItems: MonoBehaviour
 {
     [SerializeField] List<DropItem> dropItems = new ();
     [SerializeField] float delay = 3f;
     [SerializeField] float dropRadius = 1f;
+
+    Character character;
+
+    void Awake()
+    {
+        character = GetComponent<Character> ();
+        if (character == null) enabled = false;
+        character.onDied += CreateDropItems;
+    }
+
+    void OnDestroy()
+    {
+        if (character != null) character.onDied -= CreateDropItems;
+    }
 
     public void CreateDropItems () => Timing.RunCoroutine(Spawn());
 
