@@ -39,7 +39,7 @@ namespace ROGUE.Characters
         protected override void OnDied()
         {
             base.OnDied();
-            EventBus.Publish(this, EventKey.HERO_DIED, null);
+            EventBus.Publish(EventKey.HERO_DIED, null);
         }    
     }
 }

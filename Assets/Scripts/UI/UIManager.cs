@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Matso.Events;
+using ONI.Menus;
 
 public class UIManager: MonoBehaviour, IObserver
 {
@@ -12,14 +13,17 @@ public class UIManager: MonoBehaviour, IObserver
 
     void Awake()
     {
-        bool result = ServiceLocator.Register<UIManager>(this);
-        if (!result) Destroy(gameObject);
+        ServiceLocator.Register<UIManager>(this);
+        // if (!result) Destroy(gameObject);
 
         EventBus.Register(EventKey.HERO_DIED, this);
+        EventBus.Register(EventKey.GAME_PAUSED, this);
     }
 
-    void OnDestroy() {
-        EventBus.Unregister(EventKey.HERO_DIED, this);    
+    void OnDestroy() 
+    {
+        EventBus.Unregister(EventKey.HERO_DIED, this);
+        EventBus.Unregister(EventKey.GAME_PAUSED, this);    
     }
 
     void Init()
@@ -47,8 +51,14 @@ public class UIManager: MonoBehaviour, IObserver
         gameManager.SwitchState(GameState.PLAYING);
     }
 
-    public void OnNotify(Component sender, EventKey type, object data)
+    void OnGamePaused ()
+    {
+        PauseMenu.Open();
+    }
+
+    public void OnNotify(EventKey type, object data)
     {
         if(type == EventKey.HERO_DIED) OnHeroDied ();
+        else if(type == EventKey.GAME_PAUSED) OnGamePaused ();
     }
 }

@@ -8,10 +8,16 @@ public class NMESpawner: MonoBehaviour
     [SerializeField] GameObject prefab;
     [SerializeField] float radius;
     [SerializeField] float frequency;
+    CoroutineHandle handle;
 
     void Start()
     {
-        Timing.RunCoroutine(Process());
+        handle = Timing.RunCoroutine(Process());
+    }
+
+    void OnDestroy()
+    {
+        Timing.KillCoroutines(handle);
     }
 
     public void Spawn ()

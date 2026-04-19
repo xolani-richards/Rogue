@@ -8,6 +8,6 @@ public class NewGameTrigger: MonoBehaviour
     void Start()
     {
         UIManager ui = ServiceLocator.Get<UIManager>();
-        ui?.ShowPopup(title, description, () => ServiceLocator.Get<FadeScreen>().FadeIn(2f));        
+        ui?.ShowPopup(title, description, () => StartCoroutine(ServiceLocator.Get<FadeScreen>().FadeToClear(2f)));        
     }
 }

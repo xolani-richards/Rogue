@@ -1,16 +1,21 @@
 using System;
+using Matso.Events;
 using UnityEngine;
 
 public enum GameState { LOADING, MENU, PAUSED, PLAYING }
 
 public class GameManager: MonoBehaviour
 {
+    public static GameManager Instance;
     [SerializeField] int frameRate = 60;
     [field: SerializeField] public GameState gameState { get; protected set; } = GameState.LOADING;
     public Action<GameState> onStateUpdated;
 
     void Awake()
     {
+        if(Instance == null) Instance = this;
+        else Destroy(gameObject);
+
         ServiceLocator.Register<GameManager>(this);
         Application.targetFrameRate = frameRate;
     }
@@ -27,16 +32,41 @@ public class GameManager: MonoBehaviour
         }
     }
 
+    public void LoadNewGame()
+    {
+        SceneController.Instance.NewTransition()
+            .Load(SceneDatabase.Slots.GamePlayCore, SceneDatabase.Scenes.GamePlayCore)
+            .Load(SceneDatabase.Slots.SampleScene, SceneDatabase.Scenes.SampleScene, setActive: true)
+            .Unload(SceneDatabase.Slots.Menu)
+            .WithOverlay()
+            .WithLoadingMenu()
+            .Perform();
+    }
+
+    public void ReturnToMainMenu()
+    {
+        Debug.Log("Return to main menu called");
+        SwitchState(GameState.LOADING);
+        SceneController.Instance.NewTransition()
+            .Unload(SceneDatabase.Slots.SampleScene)
+            .Unload(SceneDatabase.Slots.GamePlayCore)
+            .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.MainMenu, setActive: true)
+            .WithOverlay()
+            .WithClearUnusedAssets()
+            .Perform();
+    }
+
     private void OnLoading()
     {
         gameState = GameState.LOADING;
-        Debug.Log("Loading");
+        Time.timeScale = 1f;
     }
 
     private void OnPaused()
     {
         gameState = GameState.PAUSED;
         Time.timeScale = 0;
+        EventBus.Publish(EventKey.GAME_PAUSED, null);
         onStateUpdated?.Invoke(gameState);
     }
 
@@ -45,6 +75,7 @@ public class GameManager: MonoBehaviour
         gameState = GameState.PLAYING;
         Time.timeScale = 1;
         onStateUpdated?.Invoke(gameState);
+        EventBus.Publish(EventKey.GAME_PLAYING, null);
     }
 
     private void OnMenu()
