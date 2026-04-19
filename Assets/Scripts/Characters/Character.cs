@@ -45,6 +45,8 @@ namespace ROGUE.Characters
 
             controller = GetComponent<CharacterController>();
             health = GetComponent<Health>();
+            health.Bind(this);
+            
             animator = GetComponentInChildren<Animator>();
             sensor = GetComponentInChildren<Sensor>();
             animationController = GetComponentInChildren<AnimationController>();
