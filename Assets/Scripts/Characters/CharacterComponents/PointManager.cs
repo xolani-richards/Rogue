@@ -25,6 +25,7 @@ public class PointManager: MonoBehaviour
     {
         if(value <= 0) return;
         points += value;
+        onPointsUpdated?.Invoke();
         if(points >= nextLevelRequirement) LevelUp();
     }
 

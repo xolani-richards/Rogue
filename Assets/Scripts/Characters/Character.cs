@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ROGUE.Abilities;
 using UnityEngine;
@@ -35,6 +36,8 @@ namespace ROGUE.Characters
 
         [Header("Effects")]
         [SerializeField] List<EffectData> effects = new ();
+
+        public Action onDied;
 
         protected CharacterController controller;
 
@@ -80,6 +83,7 @@ namespace ROGUE.Characters
         {
             context.SetData("Dead", 1f);
             effects.ForEach(effect => effect.Cancel());
+            onDied?.Invoke();
         }
 
         public void ApplyEffect(EffectData effect, float value)
