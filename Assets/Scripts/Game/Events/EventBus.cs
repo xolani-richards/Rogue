@@ -5,7 +5,7 @@ namespace Matso.Events
 {
     public interface IObserver
     {
-        void OnNotify(Component sender, EventKey type, object data);
+        void OnNotify(EventKey type, object data);
     }
 
     public static class EventBus
@@ -24,9 +24,9 @@ namespace Matso.Events
             observers[type].Remove(observer);
         }
 
-        public static void Publish(Component sender, EventKey type, object data)
+        public static void Publish(EventKey type, object data)
         {
-            if(observers.ContainsKey(type)) observers[type].ForEach(observer => observer.OnNotify(sender, type, data));
+            if(observers.ContainsKey(type)) observers[type].ForEach(observer => observer.OnNotify(type, data));
         }
     }
 }

@@ -4,6 +4,7 @@ namespace Matso.Events
     {
         GAME_LOADED,
         GAME_PAUSED,
+        GAME_PLAYING,
         HERO_DIED,
     }
 }

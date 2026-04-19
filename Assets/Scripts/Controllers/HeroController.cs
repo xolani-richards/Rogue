@@ -1,47 +1,68 @@
 using System;
+using Matso.Events;
 using UnityEngine;
 
-public class HeroController : CharacterController
+public class HeroController : CharacterController, IObserver
 {
+    public enum Mode {UI, IN_GAME}
+    public Mode mode = Mode.UI;
     public bool cast;
     public Action onNext;
     public Action onPrevious;
-    GameManager gameManager;
-    PlayerInput inputs;
+
+    PlayerInput controls;
+
+    public void OnNotify(EventKey type, object data)
+    {
+        if(type == EventKey.GAME_PAUSED) OnMenuMode();
+        else if(type == EventKey.GAME_PLAYING) OnGamePlayMode();
+    }
 
     void Awake()
     {
-        inputs = new ();
-        inputs.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        inputs.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+        controls = new ();
+        controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         
-        inputs.Player.Attack.performed += ctx => attackInput = true;
-        inputs.Player.Attack.canceled += ctx => attackInput = false; 
-        inputs.Player.Sprint.performed += ctx => walkInput = true;
-        inputs.Player.Sprint.canceled += ctx => walkInput = false;
-        inputs.Player.Cast.performed += ctx => cast = true;
-        inputs.Player.Cast.canceled += ctx => cast = false;
+        controls.Player.Attack.performed += ctx => attackInput = true;
+        controls.Player.Attack.canceled += ctx => attackInput = false; 
+        controls.Player.Sprint.performed += ctx => walkInput = true;
+        controls.Player.Sprint.canceled += ctx => walkInput = false;
+        controls.Player.Cast.performed += ctx => cast = true;
+        controls.Player.Cast.canceled += ctx => cast = false;
 
-        inputs.Player.Next.performed += ctx => onNext?.Invoke();
-        inputs.Player.Previous.performed += ctx => onPrevious?.Invoke();
+        controls.Player.Next.performed += ctx => onNext?.Invoke();
+        controls.Player.Previous.performed += ctx => onPrevious?.Invoke();
+        controls.Player.Pause.performed += ctx => GameManager.Instance.SwitchState(GameState.PAUSED);
         
-        inputs.Player.Enable();
-    }
-
-    void Start()
-    {
-        gameManager = ServiceLocator.Get<GameManager>();
-        gameManager.onStateUpdated += OnGameStateUpdated;
+        EventBus.Register(EventKey.GAME_PAUSED, this);
+        EventBus.Register(EventKey.GAME_PLAYING, this);
+        OnGamePlayMode();
     }
 
     void OnDestroy()
     {
-        gameManager.onStateUpdated -= OnGameStateUpdated;
+        EventBus.Unregister(EventKey.GAME_PAUSED, this);
+        EventBus.Unregister(EventKey.GAME_PLAYING, this);
+    }
+
+    private void OnMenuMode ()
+    {
+        controls.UI.Enable();
+        controls.Player.Disable();
+        mode = Mode.UI;
+    }
+
+    private void OnGamePlayMode()
+    {
+        controls.UI.Disable();
+        controls.Player.Enable();
+        mode = Mode.IN_GAME;
     }
 
     private void OnGameStateUpdated(GameState state)
     {
-        if(state != GameState.PLAYING) inputs.Player.Disable();
-        else inputs.Player.Enable();
+        if(state != GameState.PLAYING) controls.Player.Disable();
+        else controls.Player.Enable();
     }
 }
