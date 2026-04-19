@@ -1,13 +1,21 @@
+using System;
 using UnityEngine;
 
-public class PointManager:MonoBehaviour
+public class PointManager: MonoBehaviour
 {
-    [SerializeField] int points;
-    [SerializeField] int nextLevelRequirement;
+    public static PointManager instance;
+    [field: SerializeField] public int points { get; private set; }
+    [field: SerializeField] public int nextLevelRequirement { get; private set; }
     [SerializeField] int currentLevel;
     [SerializeField] int multiplier = 75;
+
+    public Action onPointsUpdated;
+
     void Awake()
     {
+        if(instance == null) instance = this;
+        else Destroy(gameObject);
+
         points = 0;
         currentLevel = 1;
         nextLevelRequirement = multiplier;

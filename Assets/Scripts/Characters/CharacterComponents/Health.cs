@@ -11,13 +11,23 @@ namespace ROGUE.Characters
         public Action died;
         public float normalized () => hitpoints / maxHitpoints;
         Character character;
+        bool initalised;
 
         void Start()
         {
+            if(initalised) return;
             character = GetComponent<Character>();
             if(character == null) return;
             maxHitpoints = character.stats.MaxHealth;
             hitpoints = maxHitpoints;
+        }
+
+        public void Bind(Character character)
+        {
+            this.character = character;
+            maxHitpoints = character.stats.MaxHealth;
+            hitpoints = maxHitpoints;
+            initalised = true;
         }
 
         public void AddHealth(float value)
