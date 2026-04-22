@@ -4,13 +4,12 @@ public class GameOverUI : MonoBehaviour
 {
     public void OnRetry ()
     {
-        Debug.Log("CLICKED");
-        // LevelLoader.LoadScene("SampleScene");
+        GameManager.Instance.ReloadLevel();
     }
 
     public void OnReturn ()
     {
         Debug.Log("ALSO CLICKED");
-        // LevelLoader.LoadScene("SampleScene");
+        GameManager.Instance.ReturnToMainMenu();
     }
 }

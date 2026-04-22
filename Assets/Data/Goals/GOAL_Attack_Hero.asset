@@ -17,5 +17,6 @@ MonoBehaviour:
   consideration:
     considerations:
     - {fileID: 11400000, guid: 868724e97bf0ca04ab4579c64f9cb16c, type: 2}
-    mode: 0
+    - {fileID: 11400000, guid: ce3a081b9411ad24ab1b30cf209f9a9d, type: 2}
+    mode: 3
     allowZeroResult: 0

@@ -45,7 +45,6 @@ public class GameManager: MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        Debug.Log("Return to main menu called");
         SwitchState(GameState.LOADING);
         SceneController.Instance.NewTransition()
             .Unload(SceneDatabase.Slots.SampleScene)
@@ -54,6 +53,19 @@ public class GameManager: MonoBehaviour
             .WithOverlay()
             .WithClearUnusedAssets()
             .Perform();
+    }
+
+    public void ReloadLevel()
+    {
+        SwitchState(GameState.LOADING);
+        SceneController.Instance.NewTransition()
+        .Load(SceneDatabase.Slots.GamePlayCore, SceneDatabase.Scenes.GamePlayCore)
+        .Load(SceneDatabase.Slots.SampleScene, SceneDatabase.Scenes.SampleScene, setActive: true)
+        .WithClearUnusedAssets()
+        .WithOverlay()
+        .WithLoadingMenu()
+        .Perform();
+
     }
 
     private void OnLoading()

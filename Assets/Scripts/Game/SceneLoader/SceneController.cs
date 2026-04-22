@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ONI.Menus;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,7 +27,8 @@ public class SceneController: MonoBehaviour
 
     public void UpdateSceneIndex(string slotKey, string sceneName)
     {
-        if(!loadedSceneBySlot.ContainsKey(slotKey)) loadedSceneBySlot[slotKey] = sceneName;
+        if(!loadedSceneBySlot.ContainsKey(slotKey)) loadedSceneBySlot.Add(slotKey, sceneName);
+        else loadedSceneBySlot[slotKey] = sceneName;
     }
 
     public Coroutine ExecutePlan(SceneTransitionPlan plan)
@@ -55,11 +55,11 @@ public class SceneController: MonoBehaviour
             yield return FadeScreen.instance.FadeToClear(1f);
         }
 
-        // MenuManager.Instance.CloseAll();
         if(plan.clearAllScenes) plan.scenesToUnload.AddRange(loadedSceneBySlot.Keys);
 
         foreach(string slotKey in plan.scenesToUnload)
         {
+            Debug.Log($"Unloading scene: {slotKey}");
             yield return UnloadSceneRoutine(slotKey);    
         }
 
@@ -108,13 +108,16 @@ public class SceneController: MonoBehaviour
                 SceneManager.SetActiveScene(newScene);
             }
         }
-
-        loadedSceneBySlot[slotKey] = sceneName;
+        UpdateSceneIndex(slotKey, sceneName);
+        // loadedSceneBySlot[slotKey] = sceneName;
     }
 
     private IEnumerator UnloadSceneRoutine(string slotKey)
     {
-        if(!loadedSceneBySlot.TryGetValue(slotKey, out string sceneName)) yield break;
+        if(!loadedSceneBySlot.TryGetValue(slotKey, out string sceneName)) {
+            Debug.Log($"FAILED TO FIND SCENE: {slotKey}");
+            yield break;
+        }
         if(string.IsNullOrEmpty(sceneName)) yield break;
 
         AsyncOperation unloadOp = SceneManager.UnloadSceneAsync(sceneName);
@@ -124,6 +127,7 @@ public class SceneController: MonoBehaviour
         }
 
         loadedSceneBySlot.Remove(slotKey);
+        Debug.Log($"REMOVED SCENE: {slotKey}");
     }
 
     private IEnumerator ClearUnusedAssetsRoutine()
