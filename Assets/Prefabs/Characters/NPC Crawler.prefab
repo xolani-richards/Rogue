@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 5294155431307709131}
   - component: {fileID: -9120521762406913152}
   m_Layer: 6
-  m_Name: NPC
+  m_Name: NPC Crawler
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,9 +194,9 @@ MonoBehaviour:
   canRotate: 1
   useRootMotion: 1
   effects: []
-  idleAnim: {fileID: 9013002834770967642, guid: 086ce7bdd0f25ac4d9769729f001d5d2, type: 3}
-  walkAnim: {fileID: 5065078985690110279, guid: 2ed5655e1eff271478aa07d7baca63cb, type: 3}
-  runAnim: {fileID: 5773200771269682347, guid: f958c2c8dfafa254c89ad8d824191db1, type: 3}
+  idleAnim: {fileID: -203655887218126122, guid: bbc8af3e48df6964b90b3e371bdb99bb, type: 3}
+  walkAnim: {fileID: -203655887218126122, guid: bbc8af3e48df6964b90b3e371bdb99bb, type: 3}
+  runAnim: {fileID: -203655887218126122, guid: bbc8af3e48df6964b90b3e371bdb99bb, type: 3}
   randomiseSpeed: 1
   <attackDistance>k__BackingField: 0
   navAgent: {fileID: 0}

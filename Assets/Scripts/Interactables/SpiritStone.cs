@@ -7,14 +7,14 @@ public class SpiritStone: MonoBehaviour, IVisitor
         
     public void OnHeroVisit()
     {
-        Debug.Log("HERO");
+        Logger.Debug(this, "Hero stepped on stone.");
         PointManager.instance.AddPoints(points);
         Destroy(gameObject, 0.2f);
     }
 
     public void OnNPCVisit()
     {
-        Debug.Log("NPC?");
+        Logger.Debug(this, "NPC stepped on stone.");
     }
 
     void OnTriggerEnter(Collider other)
