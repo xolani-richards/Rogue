@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ROGUE.Characters;
 using UnityEngine;
 
 public class MeleeAttack: Attack
@@ -9,6 +10,7 @@ public class MeleeAttack: Attack
     [SerializeField] int index;
     
     WeaponComponent weaponComponent;
+    Stamina stamina;
 
     float countDown;
 
@@ -16,7 +18,8 @@ public class MeleeAttack: Attack
     {
         base.Start();
         character.animationController.onAnimEvent += OnAnimEvent;
-        weaponComponent = GetComponentInChildren<WeaponComponent> ();   
+        weaponComponent = GetComponentInChildren<WeaponComponent> (); 
+        stamina = character.GetComponent<Stamina>();  
     }
 
     void OnDestroy()
@@ -48,6 +51,7 @@ public class MeleeAttack: Attack
         float offset = index == 0 ? 0: attack.blendDelay;
         countDown = (attack.clip.length - offset) / attack.playbackSpeed;
         character.animationSystem.PlayOneShot (attack.clip, attack.playbackSpeed, offset);
+        if(stamina != null) stamina.RemoveStamina(attack.baseStaminaCost);
         if(!isExecuting) StartCoroutine(CountDown());
 
         UpdateIndex();

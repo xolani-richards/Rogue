@@ -8,4 +8,5 @@ public class BaseStats : ScriptableObject {
     [field: SerializeField] public float magicDefense { get; protected set; } = 20f;
     [field: SerializeField] public float staminaRecovery { get; protected set;} = 1f;
     [field: SerializeField] public float maxHealth { get; protected set;} = 50f;
+    [field: SerializeField] public float maxStamina { get; protected set; } = 50f;
 }

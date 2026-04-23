@@ -5,5 +5,6 @@ public enum StatType {
     MagicDefense,
     StaminaRecovery,
     MaxHealth,
+    MaxStamina,
 
 }
