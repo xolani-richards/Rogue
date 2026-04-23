@@ -12,12 +12,14 @@ public class SpiritStonesUI : MonoBehaviour {
     {
         pointManager = PointManager.instance;
         pointManager.onPointsUpdated += OnUpdate;
+        pointManager.onLevelUp += OnLevelUp;
         OnUpdate();
     }
 
     private void OnDestroy() 
     {
         pointManager.onPointsUpdated -= OnUpdate;
+        pointManager.onLevelUp -= OnLevelUp;
     }
 
     void OnUpdate()
@@ -26,4 +28,6 @@ public class SpiritStonesUI : MonoBehaviour {
         targetPoints.text = pointManager.nextLevelRequirement.ToString();
         fillBar.fillAmount = pointManager.points / pointManager.nextLevelRequirement;
     }
+
+    void OnLevelUp() => OnUpdate();
 }

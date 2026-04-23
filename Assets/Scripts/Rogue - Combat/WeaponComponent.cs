@@ -34,16 +34,15 @@ public class WeaponComponent: MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if(other.transform.IsChildOf(user?.transform)) return;
+        if(other.tag == user?.tag) { Debug.Log($"WPN: Hit Same Tage: {other.tag}"); return; }
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable != null && !hitBuffer.Contains(damageable)) OnHit(damageable);
     }
 
     private void OnHit(IDamageable damageable)
     {
-        Debug.Log($"HIT: {damageable.gameObject.name}");
         GameObject caster = user?.gameObject;
         float damage = user == null ? baseDamage : user.stats.MeleeAttack;
-        Debug.Log($"DMG: {damage}");
         damageable.TakeDamage(damage);
     }
 }

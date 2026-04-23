@@ -690,9 +690,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15ad0f313ec01c4ea09d2d5c5e07364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NMESpawner
-  prefab: {fileID: 1361286509262821879, guid: 32422735bebe03f4d81aa8a383cc54c2, type: 3}
+  prefab: {fileID: 1422058314198862607, guid: 4ccfb50cd343dd841b05b4bcb6ab162a, type: 3}
   radius: 20
-  frequency: 4
+  frequency: 6
 --- !u!1 &1128302459
 GameObject:
   m_ObjectHideFlags: 0

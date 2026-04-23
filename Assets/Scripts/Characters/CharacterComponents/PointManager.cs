@@ -10,6 +10,7 @@ public class PointManager: MonoBehaviour
     [SerializeField] int multiplier = 75;
 
     public Action onPointsUpdated;
+    public Action onLevelUp;
 
     void Awake()
     {
@@ -34,6 +35,7 @@ public class PointManager: MonoBehaviour
         currentLevel += 1;
         nextLevelRequirement = currentLevel * multiplier;
         Debug.Log("LEVEL UP!");
+        onLevelUp?.Invoke();
         if(points >= nextLevelRequirement) LevelUp();
     }
 }

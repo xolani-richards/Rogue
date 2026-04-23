@@ -20,9 +20,10 @@ GameObject:
   - component: {fileID: 1327612531400250565}
   - component: {fileID: 3843604283244099130}
   - component: {fileID: 5294155431307709131}
+  - component: {fileID: -9120521762406913152}
   m_Layer: 6
   m_Name: NPC
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -221,14 +222,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361286509262821879}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef015373528e68344a11f3168a8ac897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropItems
   dropItems:
-  - dropChance: 1
-    item: {fileID: 9181465000436613714, guid: f5518bda7ef6c15428dccacd51922472, type: 3}
+  - dropChance: 0
+    item: {fileID: 2658596792109762545, guid: 8ef0c9afc82f5e14e8770e62e03d67d2, type: 3}
   delay: 1
   dropRadius: 1
 --- !u!114 &1327612531400250565
@@ -284,6 +285,22 @@ MonoBehaviour:
     playbackSpeed: 1
     blendDelay: 0.1
   index: 0
+--- !u!114 &-9120521762406913152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361286509262821879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f579f584cdc97304d8e98734fb0fef21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpiritStoneDropper
+  prefab: {fileID: 5297364316451537020, guid: 8ef0c9afc82f5e14e8770e62e03d67d2, type: 3}
+  delay: 3
+  dropRadius: 1
+  value: 5
 --- !u!1 &4643343669210612352
 GameObject:
   m_ObjectHideFlags: 0
