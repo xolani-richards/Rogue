@@ -8,4 +8,5 @@ public class AttackData
     public AnimationClip clip;
     public float playbackSpeed;
     public float blendDelay;
+    public float baseStaminaCost;
 }

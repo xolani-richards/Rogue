@@ -16,5 +16,6 @@ MonoBehaviour:
   <meleeDefense>k__BackingField: 20
   <magicAttack>k__BackingField: 10
   <magicDefense>k__BackingField: 20
-  <staminaRecovery>k__BackingField: 1
+  <staminaRecovery>k__BackingField: 5
   <maxHealth>k__BackingField: 50
+  <maxStamina>k__BackingField: 50

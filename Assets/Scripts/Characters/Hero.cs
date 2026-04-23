@@ -5,12 +5,13 @@ using Matso.Events;
 namespace ROGUE.Characters
 {
     [RequireComponent(typeof(PointManager))]
-    // [RequireComponent(typeof(HeroMove))]
+    [RequireComponent(typeof(Stamina))]
     public class Hero : Character, IActor, IHealable
     {
         public static Hero instance;
         [HideInInspector] public CharacterMove move;
         [HideInInspector] public Attack attack;
+        [HideInInspector] public Stamina stamina;
         Rigidbody rb;
         protected StateEngine stateEngine;
 
@@ -25,6 +26,7 @@ namespace ROGUE.Characters
             stateEngine = GetComponent<StateEngine>();
             move = GetComponent<CharacterMove>();
             attack = GetComponent<Attack>();
+            stamina = GetComponent<Stamina>();
             rb = GetComponent<Rigidbody>();
         }
 
